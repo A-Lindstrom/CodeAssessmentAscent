@@ -10,9 +10,9 @@ class EndPoints{
     return "$baseUrl$width/$height";
   }
 
-  //Default list size is 30
+  //Default list size is 30, size altered to 20
   String getListOfImages(){
-    return "${baseUrl}v2/list";
+    return "${baseUrl}v2/list?limit=20";
   }
 
   //Returns specific image given the id

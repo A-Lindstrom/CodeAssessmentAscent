@@ -29,11 +29,33 @@ void main(){
     WebImageList mockWebImageList = WebImageList(webimages: [mockWebImage]);
 
     //Here is an example of a successful networking call
-    test("Return webImageList if http completes", () async{
+    test("Return webImage if http completes", () async{
       final httpClient = MockClient();
       imageWebService = ImageWebService(httpClient);
       when(httpClient.get(any)).thenAnswer((_) async => http.Response(jsonEncode(mockWebImage),200));
       expect(imageWebService.fetchWebImageInfo(1),isA<Future<WebImage>>());
     });
+
+    test("Return null if http request is not completed", () async{
+    final httpClient = MockClient();
+    imageWebService = ImageWebService(httpClient);
+    when(httpClient.get(any)).thenAnswer((_) async => http.Response('Error', 404));
+    expect(imageWebService.fetchWebImageInfo(1), isNull);
+  });
+
+    test("Return webImageList if http completes", () async{
+      final httpClient = MockClient();
+      imageWebService = ImageWebService(httpClient);
+      when(httpClient.get(any)).thenAnswer((_) async => http.Response(jsonEncode(mockWebImageList),200));
+      expect(imageWebService.fetchWebImageList(),isA<Future<WebImageList>>());
+    });
+
+    test("Return null if http request is not completed for list call", () async{
+    final httpClient = MockClient();
+    imageWebService = ImageWebService(httpClient);
+    when(httpClient.get(any)).thenAnswer((_) async => http.Response('Error', 404));
+    expect(imageWebService.fetchWebImageList(), isNull);
+  });
+
   });
 }

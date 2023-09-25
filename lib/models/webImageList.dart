@@ -8,6 +8,10 @@ class WebImageList{
     required this.webimages,
   });
 
+  List<WebImage> getWebImages() {
+    return webimages;
+  }
+
   factory WebImageList.fromJson(List<dynamic> parsedJson){
     List<WebImage> images = [];
     images = parsedJson.map((i)=> WebImage.fromJson(i)).toList();
